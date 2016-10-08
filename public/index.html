@@ -1,16 +1,18 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<html ng-app="futebolManager">
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>Node/Angular Todo App</title>
+	<title>Futebol Manager</title>
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+
+	
 	<style>
 		html 					{ overflow-y:scroll; }
 		body 					{ padding-top:50px; }
@@ -29,19 +31,32 @@
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+			<h1>Futebol Manager</h1>
+			<h2>Jogos Guardados: <span class="label label-info">{{ jogos.length }}</span><h2>
 		</div>
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
-				<div class="checkbox" ng-repeat="todo in todos">
-					<label>
-						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-					</label>
-				</div>
+				<table class="table">
+				<thead>
+				  <tr>
+					<th>Jogo</th>
+					<th>Data</th>
+					<th>Local</th>
+					<th>Apagar</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr class="success" ng-repeat="jogo in jogos">
+					<td>{{ jogo.nome }}</td>
+					<td>{{ jogo.data }}</td>
+					<td>{{ jogo.local }}</td>
+					<td><input type="checkbox" ng-click="deleteTodo(jogo._id)"></td>
+				  </tr>
+				</tbody>
+			  </table>
 
 			</div>
 		</div>
@@ -53,21 +68,42 @@
 					<div class="form-group">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+						
+						<label for="input-nome">Nome:</label>
+						<input id="input-nome" type="text" class="form-control text-center" placeholder="Nome do Jogo" ng-model="formData.nome">
+						<br>
+						<label for="input-local">Local:</label>
+						<input id="input-local" type="text" class="form-control text-center" placeholder="Local do Jogo" ng-model="formData.local">
+						<br>
+						<label for="input-data">Data:</label>
+						<input id="input-data" type="text" class="form-control text-center" placeholder="Local do Jogo" ng-model="formData.data">
+						
+						
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Adicionar Jogo</button>
 				</form>
 			</div>
 		</div>
 
-		<!-- <div class="text-center text-muted">
-			<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-			<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">tutorial</a>.</p>
-		</div> -->
 
 	</div>
+	
+	 <!-- Load jQuery and bootstrap datepicker scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript">
+		// When the document is ready
+		$(document).ready(function () {
+			
+			$('#input-data').datepicker({
+				format: "dd/mm/yyyy"
+			});  
+		
+		});
+	</script>
+	
 
 </body>
 </html>

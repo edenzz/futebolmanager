@@ -1,20 +1,16 @@
-var Todo = require('./models/todo');
+//var Todo = require('./models/todo');
+var Jogo = require('./models/jogo');
+
 var mongoose = require('mongoose');
 
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
-	// get all todos
-	app.get('/api/todos', function(req, res) {
-
-		console.log('/api/todos');
+	// get all jogos
+	app.get('/api/jogos', function(req, res) {
 	
-		console.log('mongo connection state: ' + mongoose.connection.readyState);
-	
-		console.log(Todo);
-	
-		// use mongoose to get all todos in the database
-		Todo.find(function(err, todos) {
+		// use mongoose to get all jogos in the database
+		Jogo.find(function(err, jogos) {
 
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
@@ -24,44 +20,46 @@ module.exports = function(app) {
 			}
 				
 
-			res.json(todos); // return all todos in JSON format
+			res.json(jogos); // return all jogos in JSON format
 		});
 	});
 
-	// create todo and send back all todos after creation
-	app.post('/api/todos', function(req, res) {
+	// create jogo and send back all jogos after creation
+	app.post('/api/jogos', function(req, res) {
 
-		// create a todo, information comes from AJAX request from Angular
-		Todo.create({
-			text : req.body.text,
+		// create a jogo, information comes from AJAX request from Angular
+		Jogo.create({
+			nome : req.body.nome,
+			local : req.body.local,
+			data: req.body.data,
 			done : false
-		}, function(err, todo) {
+		}, function(err, jogo) {
 			if (err)
 				res.send(err);
 
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
+			// get and return all the jogos after you create another
+			Jogo.find(function(err, jogos) {
 				if (err)
 					res.send(err)
-				res.json(todos);
+				res.json(jogos);
 			});
 		});
 
 	});
 
-	// delete a todo
-	app.delete('/api/todos/:todo_id', function(req, res) {
-		Todo.remove({
-			_id : req.params.todo_id
-		}, function(err, todo) {
+	// delete a jogo
+	app.delete('/api/jogos/:jogo_id', function(req, res) {
+		Jogo.remove({
+			_id : req.params.jogo_id
+		}, function(err, jogo) {
 			if (err)
 				res.send(err);
 
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
+			// get and return all the jogos after you create another
+			Jogo.find(function(err, jogos) {
 				if (err)
 					res.send(err)
-				res.json(todos);
+				res.json(jogos);
 			});
 		});
 	});

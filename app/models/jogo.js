@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 module.exports = 
 	
 	mongoose.model(
-		'Todo', 
+		'Jogo', 
 		{
-			text : String,
-			done : Boolean
+			nome : String,
+			local : String,
+			data: String
 		}, 
-		"Todos");
+		"Jogos");
