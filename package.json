@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "description": "Simple todo application.",
   "main": "server.js",
+  "engines" : { 
+      "node" : ">=4.1.1",
+      "npm" : ">=2.1.x"
+  },
   "author": "Scotch",
   "dependencies": {
     "body-parser": "~1.5.2",
     "express": "~4.7.2",
     "method-override": "~2.1.2",
-    "mongoose": "4.1.9",
+    "mongoose": "4.6.3",
     "morgan": "~1.2.2"
   }
 }

@@ -1,4 +1,5 @@
 // set up ======================================================================
+var http = require ('http');	     					// For serving a basic web page.
 var express  = require('express');
 var app      = express(); 								// create our app w/ express
 var mongoose = require('mongoose'); 					// mongoose for mongodb
@@ -9,13 +10,25 @@ var morgan = require('morgan'); 		// log requests to the console (express4)
 var bodyParser = require('body-parser'); 	// pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 
+console.log('database uri = ' + database.url);
+
 // configuration ===============================================================
-mongoose.connect(database.url); 	// connect to mongoDB database on modulus.io
+
+// connect to mongoDB database on modulus.io
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(database.url, function (err, res) {
+  if (err) { 
+    console.log ('ERROR connecting to: ' + database.url + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + database.url);
+  }
+}); 	
 
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {  
-  console.log('Mongoose default connection open to ' + dbURI);
+  console.log('Mongoose default connection open to ' + database.url);
 }); 
 
 // If the connection throws an error
