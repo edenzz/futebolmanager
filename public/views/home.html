@@ -1,0 +1,91 @@
+<!-- HEADER AND TODO COUNT -->
+<div class="jumbotron text-center">
+	<h1>Futebol Manager</h1>
+	<h2>Jogos Guardados: <span class="label label-info">{{ jogos.length }}</span><h2>
+</div>
+
+<!-- TODO LIST -->
+<div id="todo-list" class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+
+		<table class="table">
+		<thead>
+		  <tr>
+			<th class="text-center">Jogo</th>
+			<th class="text-center">Data</th>
+			<th class="text-center">Local</th>
+			<th class="text-center">Detalhes</th>
+			<th class="text-center">Apagar</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr class="text-center success" ng-repeat="jogo in jogos">
+			<td>{{ jogo.nome }}</td>
+			<td>{{ jogo.data }}</td>
+			<td>{{ jogo.local }}</td>
+			<td><span style="cursor:pointer;" class="glyphicon glyphicon-search"></span></td>
+			<td><input type="checkbox" ng-click="deleteTodo(jogo._id)"></td>
+		  </tr>
+		</tbody>
+	  </table>
+
+	</div>
+</div>
+
+<!-- FORM TO CREATE TODOS -->
+<div id="form" class="row">
+	<div class="col-sm-8 col-sm-offset-2 text-center">
+		<form name="formAddGame">
+			<div class="form-group">
+
+				<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+				
+				<label for="inputNome">Nome:</label>
+				<input name="inputNome" 
+					   type="text" 
+					   class="form-control text-center" 
+					   placeholder="Nome do Jogo" 
+					   ng-model="formData.nome"
+					   ng-required="true"
+					   >
+				<br>
+				<label for="inputLocal">Local:</label>
+				<input name="inputLocal" 
+					   type="text" 
+					   class="form-control text-center" 
+					   placeholder="Local do Jogo" 
+					   ng-model="formData.local"
+					   ng-required="true"
+					   >			
+				
+				
+				<br>
+				<label for="inputData">Data:</label>
+				<p class="input-group">
+				  <input name="inputData"
+						 type="text" 
+						 class="form-control text-center" 
+						 placeholder="Data do Jogo" 
+						 uib-datepicker-popup="dd-MM-yyyy" 
+						 ng-model="formData.data" 
+						 is-open="popup1.opened" 
+						 datepicker-options="dateOptions" 
+						 close-text="Close"
+						 ng-required="true"								 
+				  />
+				  
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+				</p>
+		
+			</div>
+
+			<!-- createToDo() WILL CREATE NEW TODOS -->
+			<button type="submit" 
+					ng-disabled="formAddGame.$invalid" 
+					class="btn btn-primary btn-lg" 
+					ng-click="createTodo()">Adicionar Jogo</button>
+		</form>
+	</div>
+</div>

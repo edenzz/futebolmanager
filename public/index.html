@@ -24,88 +24,35 @@
 	<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script><!-- load angular --> 
 	
 	<script src="js/angular.min.js"></script>
-	
+	<script src="js/angular-route.min.js"></script>
 	<script src="js/angular-animate.min.js"></script>
 	<script src="js/angular-touch.min.js"></script>
-	
-	
 	<script src="js/ui-bootstrap-tpls-2.1.4.min.js"></script>
+	
+	<!-- core -->
 	<script src="core.js"></script>
 
+	<!-- controllers -->
+	<script src="controllers/mainController.js"></script>
+	<script src="controllers/aboutController.js"></script>
+	<script src="controllers/navController.js"></script>
+	
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
-<body ng-controller="mainController">
+<!-- <body ng-controller="mainController"> -->
+<body ng-controller="navController">
 	<div class="container">
 
-		<!-- HEADER AND TODO COUNT -->
-		<div class="jumbotron text-center">
-			<h1>Futebol Manager</h1>
-			<h2>Jogos Guardados: <span class="label label-info">{{ jogos.length }}</span><h2>
+	
+	
+		<div class="navbar">
+			<ul class="nav navbar-nav">
+			  <li ng-class="navClass('home')"><a href='' ng-click="loadHome()">Home</a></li>
+			  <li ng-class="navClass('about')"><a href='' ng-click="loadAbout()">Sobre</a></li>
+			</ul>
 		</div>
-
-		<!-- TODO LIST -->
-		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				<table class="table">
-				<thead>
-				  <tr>
-					<th>Jogo</th>
-					<th>Data</th>
-					<th>Local</th>
-					<th>Apagar</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr class="success" ng-repeat="jogo in jogos">
-					<td>{{ jogo.nome }}</td>
-					<td>{{ jogo.data }}</td>
-					<td>{{ jogo.local }}</td>
-					<td><input type="checkbox" ng-click="deleteTodo(jogo._id)"></td>
-				  </tr>
-				</tbody>
-			  </table>
-
-			</div>
-		</div>
-
-		<!-- FORM TO CREATE TODOS -->
-		<div id="todo-form" class="row">
-			<div class="col-sm-8 col-sm-offset-2 text-center">
-				<form>
-					<div class="form-group">
-
-						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						
-						<label for="input-nome">Nome:</label>
-						<input id="input-nome" type="text" class="form-control text-center" placeholder="Nome do Jogo" ng-model="formData.nome">
-						
-						<br>
-						<label for="input-local">Local:</label>
-						<input id="input-local" type="text" class="form-control text-center" placeholder="Local do Jogo" ng-model="formData.local">
-											
-						<br>
-						<label for="input-data">Data:</label>
-						<p class="input-group">
-						  <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" ng-model="formData.data" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-						  <span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-						  </span>
-						</p>
-				
-					</div>
-
-					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Adicionar Jogo</button>
-				</form>
-			</div>
-		</div>
-
-
+		
+		<div ng-view> </div>
 	</div>
-	
-
-	
-	
 </body>
 </html>
