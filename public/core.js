@@ -1,13 +1,24 @@
 // var futebolManager = angular.module('futebolManager', []);
 
 var futebolManager = angular.module('futebolManager', ['ui.bootstrap'])
-	.controller('mainController', ['$scope', '$http' , mainController]);
+	.controller('mainController', ['$scope', '$http', '$filter', mainController]);
 
-function mainController($scope, $http) {
+		
+	
+function mainController($scope, $http, $filter) {
 		$scope.formData = {};
 	
-	// DATA - START
-
+	function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}
+	
+	// DATA - START	
+	
 	$scope.dateOptions = {
 		dateDisabled: disabled,
 		formatYear: 'yy',
@@ -48,7 +59,14 @@ function mainController($scope, $http) {
 
 	// when submitting the add form, send the text to the node API
 	$scope.createTodo = function() {
-		$http.post('/api/jogos', $scope.formData)
+		
+		// Deep copy
+		var postData = clone($scope.formData);
+		var datefilter = $filter('date');
+		var data = datefilter($scope.formData.data, 'dd-MM-yyyy');
+		postData.data = data;
+		
+		$http.post('/api/jogos', postData)
 			.success(function(data) {
 				$scope.formData = {}; // clear the form so our user is ready to enter another
 				$scope.jogos = data;
