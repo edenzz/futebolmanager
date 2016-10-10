@@ -9,6 +9,7 @@ futebolManager.config(function ($routeProvider, $locationProvider, $httpProvider
     });
     $routeProvider.when('/about',
     {
+      templateUrl:    'views/about.html',
       controller:     'aboutController'
     });
     $routeProvider.otherwise(
