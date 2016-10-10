@@ -17,6 +17,8 @@ function mainController($scope, $http, $filter) {
     return copy;
 }
 	
+	
+	
 	// DATA - START	
 	
 	$scope.dateOptions = {
