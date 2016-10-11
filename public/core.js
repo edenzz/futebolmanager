@@ -12,6 +12,11 @@ futebolManager.config(function ($routeProvider, $locationProvider, $httpProvider
       templateUrl:    'views/about.html',
       controller:     'aboutController'
     });
+	$routeProvider.when('/gameDetails',
+    {
+      templateUrl:    'views/gameDetails.html',
+      controller:     'gameDetailsController'
+    });
     $routeProvider.otherwise(
     {
       redirectTo:     '/home',

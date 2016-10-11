@@ -1,7 +1,7 @@
-futebolManager.controller('mainController', ['$scope', '$http', '$filter', mainController]);
+futebolManager.controller('mainController', ['$scope', '$http', '$filter', '$location', mainController]);
 
 	
-function mainController($scope, $http, $filter) {
+function mainController($scope, $http, $filter, $location) {
 	
 	$scope.formData = {
 		'data':  new Date(),
@@ -84,6 +84,11 @@ function mainController($scope, $http, $filter) {
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+	};
+	
+	
+	$scope.loadGameDetails = function (id) {
+        $location.path('/gameDetails/').search({'id': id});
 	};
 
 

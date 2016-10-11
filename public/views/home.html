@@ -5,7 +5,7 @@
 </div>
 
 <!-- TODO LIST -->
-<div id="todo-list" class="row">
+<div id="jogosList" class="row">
 	<div class="col-sm-4 col-sm-offset-4">
 
 		<table class="table">
@@ -23,7 +23,7 @@
 			<td>{{ jogo.nome }}</td>
 			<td>{{ jogo.data }}</td>
 			<td>{{ jogo.local }}</td>
-			<td><span style="cursor:pointer;" class="glyphicon glyphicon-search"></span></td>
+			<td><span style="cursor:pointer;" ng-click="loadGameDetails(jogo._id)" class="glyphicon glyphicon-search"></span></td>
 			<td><input type="checkbox" ng-click="deleteTodo(jogo._id)"></td>
 		  </tr>
 		</tbody>

@@ -36,22 +36,19 @@
 	<script src="controllers/mainController.js"></script>
 	<script src="controllers/aboutController.js"></script>
 	<script src="controllers/navController.js"></script>
+	<script src="controllers/gameDetailsController.js"></script>
 	
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <!-- <body ng-controller="mainController"> -->
 <body ng-controller="navController">
 	<div class="container">
-
-	
-	
 		<div class="navbar">
 			<ul class="nav navbar-nav">
 			  <li ng-class="navClass('home')"><a href='' ng-click="loadHome()">Home</a></li>
 			  <li ng-class="navClass('about')"><a href='' ng-click="loadAbout()">Sobre</a></li>
 			</ul>
 		</div>
-		
 		<div ng-view> </div>
 	</div>
 </body>
