@@ -1,11 +1,27 @@
 <!-- HEADER AND TODO COUNT -->
 <div class="jumbotron text-center">
 	<h1>Futebol Manager</h1>
-	<h2>Detalhes do Jogo: <span class="label label-info">{{ gameDetailsId }}</span><h2>
+	<h2>Detalhes do Jogo: <span class="label label-info">{{ jogo.nome }}</span><h2>
 </div>
 
 <div class="row text-center">
 
-Eh lá
+  <uib-tabset>
+		<uib-tab heading="Detalhes do Jogo" active="tabOneActive">
+			<div class="text-left">
+				<ul>
+					<li>Nome: {{ jogo.nome }}</li>
+					<li>Data: {{ jogo.data }}</li>
+					<li>Local: {{ jogo.local }}</li>
+				</ul>
+			</div>
+		</uib-tab>
+		<uib-tab heading="Anexos Jogo" active="tabOneActive">
+			Anexos
+		</uib-tab>
+		<uib-tab heading="Chat" active="tabTwoActive">
+			Chat
+		</uib-tab>
+	</uib-tabset>
 
 </div>

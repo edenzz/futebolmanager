@@ -63,6 +63,27 @@ module.exports = function(app) {
 			});
 		});
 	});
+	
+	
+	// get a specific game
+	app.get('/api/jogos/detalhesJogo', function(req, res) {
+		
+		var idJogo = req.param('id');;
+	
+		// use mongoose to get all jogos in the database
+		Jogo.findOne({'_id' : idJogo }, function(err, jogo) {
+
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+			{
+				console.log("erro: " + err);
+				res.send(err)
+			}
+
+			res.json(jogo); // return all jogos in JSON format
+		});
+		
+	});
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {

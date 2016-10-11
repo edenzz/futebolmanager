@@ -3,18 +3,27 @@ futebolManager.controller('mainController', ['$scope', '$http', '$filter', '$loc
 	
 function mainController($scope, $http, $filter, $location) {
 	
+	// when landing on the page, get all jogos and show them
+	$http.get('/api/jogos')
+		.success(function(data) {
+			$scope.jogos = data;
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
+	
 	$scope.formData = {
 		'data':  new Date(),
 	};
 	
 	function clone(obj) {
-    if (null == obj || "object" != typeof obj) return obj;
-    var copy = obj.constructor();
-    for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-    }
-    return copy;
-}
+		if (null == obj || "object" != typeof obj) return obj;
+		var copy = obj.constructor();
+		for (var attr in obj) {
+			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+		}
+		return copy;
+	}
 	
 	// DATA - START	
 	
@@ -42,16 +51,6 @@ function mainController($scope, $http, $filter, $location) {
 	};
   
 	// DATA - END
-	
-	
-	// when landing on the page, get all jogos and show them
-	$http.get('/api/jogos')
-		.success(function(data) {
-			$scope.jogos = data;
-		})
-		.error(function(data) {
-			console.log('Error: ' + data);
-		});
 
 	// when submitting the add form, send the text to the node API
 	$scope.createTodo = function() {
