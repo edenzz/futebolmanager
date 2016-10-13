@@ -45,10 +45,16 @@ function gameDetailsController($scope, $location, $routeParams, $http, $log, uiU
 			},
 			onCompleted: function(file, response) {
 				$log.info(file + 'response' + response);
+			},
+			onCompletedAll: function(files) {
+				$log.info('completed all');
 				
 				// obter o jogo
 				$scope.obterJogo();
 			}
+			
+			
+			
 		});
 	};
 	

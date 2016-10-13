@@ -99,18 +99,6 @@ module.exports = function(app) {
 		var fstream;
 		req.pipe(req.busboy);
 		
-		
-		// write to file
-		// req.busboy.on('file', function (fieldname, file, filename) {
-			// console.log("Uploading: " + filename); 
-			
-			// fstream = fs.createWriteStream(__dirname + '/../tempfiles/' + filename);
-			// file.pipe(fstream);
-			// fstream.on('close', function () {
-				// res.redirect('back');
-			// });
-		// });
-		
 		// get image in base64
 		req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 		  console.log('File: ' + filename + ', mimetype: ' + mimetype);
