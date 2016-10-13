@@ -1,18 +1,19 @@
 {
-  "name": "node-todo",
+  "name": "node-FutebolManager",
   "version": "0.0.0",
-  "description": "Simple todo application.",
+  "description": "Aplicação WEB para gerir Jogos",
   "main": "server.js",
   "engines" : { 
       "node" : ">=4.1.1",
       "npm" : ">=2.1.x"
   },
-  "author": "Scotch",
+  "author": "Pedro Fonseca",
   "dependencies": {
     "body-parser": "~1.5.2",
     "express": "~4.7.2",
     "method-override": "~2.1.2",
     "mongoose": "4.6.3",
-    "morgan": "~1.2.2"
+    "morgan": "~1.2.2",
+	"connect-busboy": "0.0.2"
   }
 }
