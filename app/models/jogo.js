@@ -7,6 +7,12 @@ module.exports =
 		{
 			nome : String,
 			local : String,
-			data: String
+			data: String,
+			imagens:
+			[{
+				nomeImagem: String,
+				imagem: String,
+			}],
+			
 		}, 
 		"Jogos");

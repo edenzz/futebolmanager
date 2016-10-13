@@ -1,27 +1,57 @@
 <!-- HEADER AND TODO COUNT -->
-<div class="jumbotron text-center">
-	<h1>Futebol Manager</h1>
-	<h2>Detalhes do Jogo: <span class="label label-info">{{ jogo.nome }}</span><h2>
-</div>
+<div>
 
-<div class="row text-center">
+	<div class="jumbotron text-center">
+		<h1>Futebol Manager</h1>
+		<h2>Detalhes do Jogo: <span class="label label-info">{{ jogo.nome }}</span><h2>
+	</div>
 
-  <uib-tabset>
-		<uib-tab heading="Detalhes do Jogo" active="tabOneActive">
-			<div class="text-left">
-				<ul>
-					<li>Nome: {{ jogo.nome }}</li>
-					<li>Data: {{ jogo.data }}</li>
-					<li>Local: {{ jogo.local }}</li>
-				</ul>
-			</div>
-		</uib-tab>
-		<uib-tab heading="Anexos Jogo" active="tabOneActive">
-			Anexos
-		</uib-tab>
-		<uib-tab heading="Chat" active="tabTwoActive">
-			Chat
-		</uib-tab>
-	</uib-tabset>
+	<div class="row text-center">
+
+	  <uib-tabset>
+			<uib-tab heading="Detalhes do Jogo" active="tabOneActive">
+				<div class="text-left">
+					<ul>
+						<li>Nome: {{ jogo.nome }}</li>
+						<li>Data: {{ jogo.data }}</li>
+						<li>Local: {{ jogo.local }}</li>
+					</ul>
+				</div>
+			</uib-tab>
+			<uib-tab heading="Anexos Jogo" active="tabOneActive">
+				
+				<div ng-repeat="imagem in jogo.imagens">
+					<img style="width: 20%;" data-ng-src="data:image/png;base64,{{imagem.imagem}}" data-err-src="images/png/avatar.png"/>
+				</div>
+				
+				 <div class="row">
+					<div class="col-md-6">
+						<h3>Anexos</h3>
+						<p>Faça upload de vários ficheiros ao mesmo tempo.</p>
+
+						<div class="well">
+							<div>
+								<div style="float:right;">
+									<button ng-click="btn_upload()">Upload</button>
+									<button ng-click="btn_clean()">Remove all</button>
+								</div>
+								<input type="file" id="file1" multiple/>
+							</div>
+							<div ng-repeat="file in files" style="margin-top: 20px;border-bottom-color: antiquewhite;border-bottom-style: double;">
+								<div><span>{{file.name}}</span><div style="float:right;"><span>{{file.humanSize}}</span><a ng-click="btn_remove(file)" title="Remover ficheiro da lista para ser feito upload"><i class="icon-remove"></i></a></div>
+								</div>
+								<progress style="width:400px;" value="{{file.loaded}}" max="{{file.size}}"></progress>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</uib-tab>
+			<uib-tab heading="Chat" active="tabTwoActive">
+				Chat
+			</uib-tab>
+		</uib-tabset>
+
+	</div>
 
 </div>

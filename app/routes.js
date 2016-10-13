@@ -1,11 +1,13 @@
-//var Todo = require('./models/todo');
 var Jogo = require('./models/jogo');
-
 var mongoose = require('mongoose');
+const util = require('util')
+var fs = require('fs');
+var busboy = require('connect-busboy');
 
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
+	
 	// get all jogos
 	app.get('/api/jogos', function(req, res) {
 	
@@ -82,6 +84,90 @@ module.exports = function(app) {
 
 			res.json(jogo); // return all jogos in JSON format
 		});
+		
+	});
+	
+	
+	
+	// get a specific game
+	app.post('/api/jogos/detalhesJogo/upload', function(req, res) {
+		
+		var base64data = [];
+		var nomeImagem;
+		var gameId;
+		
+		var fstream;
+		req.pipe(req.busboy);
+		
+		
+		// write to file
+		// req.busboy.on('file', function (fieldname, file, filename) {
+			// console.log("Uploading: " + filename); 
+			
+			// fstream = fs.createWriteStream(__dirname + '/../tempfiles/' + filename);
+			// file.pipe(fstream);
+			// fstream.on('close', function () {
+				// res.redirect('back');
+			// });
+		// });
+		
+		// get image in base64
+		req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+		  console.log('File: ' + filename + ', mimetype: ' + mimetype);
+		  nomeImagem = filename;
+		  
+		  var buffer = '';
+		  file.setEncoding('base64');
+		  file.on('data', function(data) {
+			// `data` is now a base64-encoded chunk of file data
+			buffer += data;
+		  }).on('end', function() {
+			base64data.push(buffer);
+		  });
+		}).on('finish', function(){
+		  //console.log('Data2: ' + base64data);
+		});
+		
+		req.busboy.on('field', function (fieldname, val, valTruncated, keyTruncated) {
+			console.log(fieldname);
+			console.log(val);
+			
+			switch(fieldname)
+			{
+				case 'id':
+					gameId = val;
+					break;
+					
+				default:
+					break;
+				
+			}
+		});
+		
+		req.busboy.on('finish',function(){
+			console.log('finished');
+
+			var query = {'_id' : gameId };
+			
+			var imagem = 
+			{
+				"imagens": [
+					{
+						'nomeImagem': nomeImagem,
+						'imagem': base64data,
+					},
+				],
+			};
+			
+			Jogo.update(query, imagem, function(err, numberAffected, rawResponse) 
+			{
+			   //handle it
+			   console.log("game updated");
+			});
+			
+		});
+		
+		
 		
 	});
 

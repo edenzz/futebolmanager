@@ -28,6 +28,7 @@
 	<script src="js/angular-animate.min.js"></script>
 	<script src="js/angular-touch.min.js"></script>
 	<script src="js/ui-bootstrap-tpls-2.1.4.min.js"></script>
+	<script src="js/uploader.js"></script>
 	
 	<!-- core -->
 	<script src="core.js"></script>
@@ -42,7 +43,7 @@
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <!-- <body ng-controller="mainController"> -->
 <body ng-controller="navController">
-	<div class="container">
+	<div ng-cloak class="container">
 		<div class="navbar">
 			<ul class="nav navbar-nav">
 			  <li ng-class="navClass('home')"><a href='' ng-click="loadHome()">Home</a></li>

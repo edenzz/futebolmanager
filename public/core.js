@@ -1,4 +1,4 @@
-var futebolManager = angular.module('futebolManager', ['ngRoute', 'ui.bootstrap']);
+var futebolManager = angular.module('futebolManager', ['ngRoute', 'ui.bootstrap', 'ui.uploader']);
 
 futebolManager.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
