@@ -1,6 +1,6 @@
-futebolManager.controller('gameDetailsController', ['$scope', '$location', '$routeParams', '$http', '$log', 'uiUploader', gameDetailsController]);
+futebolManager.controller('gameDetailsController', ['$scope', '$location', '$routeParams', '$http', '$log', 'uiUploader', '$timeout', gameDetailsController]);
 
-function gameDetailsController($scope, $location, $routeParams, $http, $log, uiUploader) 
+function gameDetailsController($scope, $location, $routeParams, $http, $log, uiUploader, $timeout) 
 {
 	$scope.obterJogo = function() {
 		$http.get('/api/jogos/detalhesJogo?id=' + $scope.gameDetailsId)
@@ -50,7 +50,7 @@ function gameDetailsController($scope, $location, $routeParams, $http, $log, uiU
 				$log.info('completed all');
 				
 				// obter o jogo
-				$scope.obterJogo();
+				$timeout($scope.obterJogo, 1000);
 			}
 			
 			
