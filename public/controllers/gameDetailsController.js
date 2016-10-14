@@ -58,6 +58,27 @@ function gameDetailsController($scope, $location, $routeParams, $http, $log, uiU
 		});
 	};
 	
+	$scope.deleteImage = function(imageId) {
+		$log.info('deleting image...');
+		
+		var data = 
+		{
+			'id' : $scope.gameDetailsId,
+			'numeroImagem': imageId,
+		};
+		
+
+		$http.post('/api/jogos/detalhesJogo/apagarImagem', data).success(function(data) {
+				
+			console.log("sucesso");
+			$scope.obterJogo();
+				
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
+	};
+	
 	$scope.files = [];
 	
 	angular.element(document).ready(function () 

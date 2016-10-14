@@ -10,6 +10,7 @@ module.exports =
 			data: String,
 			imagens:
 			[{
+				numeroImagem: String,
 				nomeImagem: String,
 				imagem: String,
 			}],

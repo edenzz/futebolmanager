@@ -6,6 +6,16 @@ var busboy = require('connect-busboy');
 
 module.exports = function(app) {
 
+	function guid() {
+	  function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+		  .toString(16)
+		  .substring(1);
+	  }
+	  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+		s4() + '-' + s4() + s4() + s4();
+	}
+
 	// api ---------------------------------------------------------------------
 	
 	// get all jogos
@@ -137,27 +147,69 @@ module.exports = function(app) {
 
 			var query = {'_id' : gameId };
 			
-			var imagem = 
+			// use mongoose to get all jogos in the database
+			Jogo.findOne(query, function(err, jogo) 
 			{
-				"imagens": [
-					{
-						'nomeImagem': nomeImagem,
-						'imagem': base64data,
-					},
-				],
-			};
-			
-			Jogo.update(query, imagem, function(err, numberAffected, rawResponse) 
-			{
-			   //handle it
-			   console.log("game updated");
+				if (err)
+				{
+					console.log("erro: " + err);
+					res.send(err)
+				}
+				
+				var numImagem = guid();
+				
+				var imagem = 
+				{
+					"imagens": [
+						{
+							'nomeImagem': nomeImagem,
+							'imagem': base64data,
+							'numeroImagem': numImagem,
+						},
+					],
+				};
+				
+				Jogo.update(query, { $pushAll : imagem }, function(err, numberAffected, rawResponse) 
+				{
+					if(err){
+						console.log(err);
+					}else{
+						//handle it
+						console.log("game updated");
+					}
+				});
 			});
-			
 		});
-		
-		
-		
 	});
+	
+	
+	
+	// delete image from a game
+	app.post('/api/jogos/detalhesJogo/apagarImagem', function(req, res) {
+
+		var idJogo = req.body.id;
+		var numeroImagem = req.body.numeroImagem;
+		
+		console.log("idJogo = " + idJogo);
+		console.log("numeroImagem = " + numeroImagem);
+	
+		var query = {'_id' : idJogo };
+	
+		Jogo.update( query, 
+					{ $pull: { 'imagens': { 'numeroImagem': numeroImagem } } },
+					{ safe: true }, 
+					function removeConnectionsCB(err, obj) {
+						
+						if(err){
+							console.log(err);
+						}else{
+							//handle it
+							console.log("game updated");
+							res.json(obj);
+						}
+					});
+	});
+	
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {

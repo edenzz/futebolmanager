@@ -20,10 +20,6 @@
 			</uib-tab>
 			<uib-tab heading="Anexos Jogo" active="tabOneActive">
 				
-				<div ng-repeat="imagem in jogo.imagens">
-					<img style="width: 20%;" data-ng-src="data:image/png;base64,{{imagem.imagem}}" data-err-src="images/png/avatar.png"/>
-				</div>
-				
 				 <div class="row">
 					<div class="col-md-6">
 						<h3>Anexos</h3>
@@ -45,6 +41,13 @@
 						</div>
 					</div>
 				</div>
+				
+				<div ng-repeat="imagem in jogo.imagens">
+					<img style="float:left; padding-left: 10px; padding-bottom: 10px; width: 30%;" data-ng-src="data:image/png;base64,{{imagem.imagem}}" />
+					<span style="float:left; cursor:pointer;" ng-click="deleteImage(imagem.numeroImagem)" class="glyphicon glyphicon-remove"><span>
+				</div>
+				
+				<div class="clearfix visible-xs-block"></div>
 				
 			</uib-tab>
 			<uib-tab heading="Chat" active="tabTwoActive">
