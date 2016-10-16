@@ -50,7 +50,8 @@ function gameDetailsController($scope, $location, $routeParams, $http, $log, uiU
 				$log.info('completed all');
 				
 				// obter o jogo
-				$timeout($scope.obterJogo, 1000);
+				//$timeout($scope.obterJogo, 1000);
+				$scope.obterJogo();
 			}
 			
 			
