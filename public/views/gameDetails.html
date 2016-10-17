@@ -51,7 +51,33 @@
 				
 			</uib-tab>
 			<uib-tab heading="Chat" active="tabTwoActive">
-				Chat
+			  <div style="margin-top: 5%;">
+				You are known as: <span ng-bind="nickName"></span>.<br/>Change your nickname with <code>/nick [yourNewNick]</code>
+				<div class='row'>
+				  <div class='col-md-9'>
+					<chat-box></chat-box>
+				  </div>
+				</div>
+				<div class='row'>
+				  &nbsp;
+				</div>
+				<div class='row' ng-controller="gameDetailsController">
+				  <div class='col-md-8'>
+					<form role='form' novalidate name='form'>
+					  <div class='form-group'>
+						<input type='text' style='width: 80%'
+						required
+						ng-max='50'
+						ng-model="message"
+						focus>
+						<button class='btn btn-sm btn-primary'
+						  ng-enable='form.$valid'
+						  ng-click="sendMessage(message)">Send!</button>
+					  </div>
+					</form>
+				  </div>
+				</div>
+			  </div>
 			</uib-tab>
 		</uib-tabset>
 

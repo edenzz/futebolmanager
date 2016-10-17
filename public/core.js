@@ -1,4 +1,11 @@
-var futebolManager = angular.module('futebolManager', ['ngRoute', 'ui.bootstrap', 'ui.uploader']);
+var futebolManager = angular.module('futebolManager', 
+								    ['ngRoute', 
+								 	 'ui.bootstrap', 
+									 'ui.uploader', 
+									 'ngCookies',
+									 'ngResource',
+									 'ngSanitize',
+									 'btford.socket-io']).value('nickName', 'anonymous');
 
 futebolManager.config(function ($routeProvider, $locationProvider, $httpProvider) {
 

@@ -1,7 +1,10 @@
 // set up ======================================================================
-var http = require ('http');	     					// For serving a basic web page.
 var express  = require('express');
+var io = require('socket.io');
 var app      = express(); 								// create our app w/ express
+var http = require ('http'); 				    		// For serving a basic web page.
+var server = http.createServer(app);
+var io = io.listen(server);
 var mongoose = require('mongoose'); 					// mongoose for mongodb
 var port  	 = process.env.PORT || 8080; 				// set the port
 var database = require('./config/database'); 			// load the database config
@@ -52,6 +55,35 @@ app.use(methodOverride());
 // routes ======================================================================
 require('./app/routes.js')(app);
 
+// sockets ======================================================================
+require('./sockets/base')(io);
+
 // listen (start app with node server.js) ======================================
-app.listen(port);
+// app.listen(port);	
+server.listen(port);
+
 console.log("App listening on port " + port);
+
+
+/// catch 404 and forwarding to error handler
+app.use(function (req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+app.use(function (err, req, res, next) {
+	res.status(err.status || 500);
+	res.render('error', {
+	  message: err.message,
+	  error: err
+	});
+});
+
+
+
+
